@@ -17,3 +17,12 @@ gatling {
 repositories {
   mavenCentral()
 }
+
+dependencies {
+    testImplementation 'io.cucumber:cucumber-java:6.11.0'
+    testImplementation 'io.cucumber:cucumber-junit:6.11.0'
+    testImplementation 'io.cucumber:cucumber-core:6.11.0'
+    testImplementation 'io.gatling.highcharts:gatling-charts-highcharts:3.6.1'
+    testImplementation 'io.gatling:gatling-test-framework:3.6.1'
+    // Add any other dependencies you may need
+}

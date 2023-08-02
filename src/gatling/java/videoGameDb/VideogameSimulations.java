@@ -1,5 +1,7 @@
 package videoGameDb;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.*;
 
@@ -8,7 +10,6 @@ import io.gatling.javaapi.http.*;
 
 import static io.gatling.javaapi.core.CoreDsl.*;
 import static io.gatling.javaapi.http.HttpDsl.*;
-
 public class VideogameSimulations extends Simulation {
 
   private HttpProtocolBuilder httpProtocol = http
@@ -38,12 +39,17 @@ public class VideogameSimulations extends Simulation {
                             .get("/api/videogame/2")
             ).pause(5);
 
+    PopulationBuilder pb=scn.injectOpen(atOnceUsers(10)).protocols(httpProtocol);
+    PopulationBuilder pb2=scn2.injectOpen(rampUsers(20).during(10)).protocols(httpProtocol);
 
 
   {
+      List<List<PopulationBuilder>> arrayList=new ArrayList<>();
+      arrayList.add(Arrays.asList(pb,pb2));
+
       scenarios.add(scn);
-    scenarios.add(scn2);
-      scenarios.add(scn3);
+//      scenarios.add(scn2);
+//      scenarios.add(scn3);
 
    List<PopulationBuilder> pbs=new ArrayList<>();
     for(ScenarioBuilder scenario:scenarios){
@@ -53,7 +59,7 @@ public class VideogameSimulations extends Simulation {
 
     PopulationBuilder chaindedPopulationBuilder=pbs.stream().reduce(PopulationBuilder::andThen).orElseThrow(()->new IllegalStateException("No Pb Found"));
 
-    setUp(chaindedPopulationBuilder);
+      setUp(chaindedPopulationBuilder);;
 
   }
 

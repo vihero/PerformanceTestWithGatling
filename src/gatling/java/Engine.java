@@ -1,5 +1,10 @@
 import io.gatling.app.Gatling;
+import io.gatling.core.config.GatlingConfiguration;
 import io.gatling.core.config.GatlingPropertiesBuilder;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 public class Engine {
 
